@@ -1,13 +1,18 @@
 package castle;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Game {
     private Room currentRoom;
-        
+    private HashMap<String,Handler> handlers = new HashMap<String,Handler>();
+    
     public Game() 
     {
         createRooms();
+        handlers.put("help", new HandlerHelp(this));
+        handlers.put("go", new HandlerGo(this));
+        handlers.put("bye", new HandlerBye(this));
     }
 
     private void createRooms()
@@ -59,7 +64,7 @@ public class Game {
         System.out.println();
     }
 
-    private void goRoom(String direction) 
+    protected void goRoom(String direction) 
     {
         Room nextRoom = null;
         nextRoom = currentRoom.getExitRoom(direction);
@@ -71,6 +76,24 @@ public class Game {
             currentRoom = nextRoom;
             showPrompt();
         }
+    }
+    
+    private void play(){
+		Scanner in = new Scanner(System.in);
+ 
+    	while ( true ) {
+     		String line = in.nextLine();
+     		String[] words = line.split(" ");
+     		Handler handler = handlers.get(words[0]);
+     		if (words[0].length() > 1){
+     			if(handler.isBye())
+     				break;
+     			else
+     				handler.doCmd(words[1]);
+     		}
+     }
+     
+     System.out.println("感谢您的光临。再见！");
     }
 	
 	public static void main(String[] args) {
