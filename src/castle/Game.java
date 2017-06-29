@@ -52,7 +52,7 @@ public class Game {
     private void showPrompt(){
     	System.out.println("现在你在" + currentRoom);
         System.out.print("出口有：");
-        currentRoom.getExitDesc();
+        System.out.println(currentRoom.getExitDesc());
         System.out.println();
     }
 

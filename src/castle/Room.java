@@ -30,15 +30,17 @@ public class Room {
         return description;
     }
     
-    public void getExitDesc(){
+    public String getExitDesc(){
+    	StringBuffer sb = new StringBuffer();
     	if(northExit != null)
-            System.out.print("north ");
+            sb.append("north ");
         if(eastExit != null)
-            System.out.print("east ");
+            sb.append("east ");
         if(southExit != null)
-            System.out.print("south ");
+            sb.append("south ");
         if(westExit != null)
-            System.out.print("west ");
+            sb.append("west ");
+        return sb.toString();
     }
     
     public Room getExitRoom(String direction){
